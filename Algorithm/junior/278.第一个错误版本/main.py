@@ -4,20 +4,25 @@ def firstBadVersion(n):
     :type n: int
     :rtype: int
     """
-    start=1
-    end=n
-    while(start<=end):
-        mid=start+(end-start)/2
-        if not isBadVersion(mid) & isBadVersion(mid+1):
+    left=1
+    right=n
+    if isBadVersion(1):
+        return 1
+    while(left<=right):
+        mid=left+(right-left)/2
+        mid_check = isBadVersion(mid)
+        mid_1_check = isBadVersion(mid+1)
+        if (not mid_check) & mid_1_check:
             return mid+1
-        if not isBadVersion(mid):
-            left = mid
-        if isBadVersion(mid):
+        elif mid_check & mid_1_check:
             right = mid
+        elif (not mid_check) & (not mid_1_check):
+            left = mid
+        
 
 def isBadVersion(n):
-    if n >= 3:
+    if n >= 5:
         return True
     return False
 if __name__ == "__main__":
-    firstBadVersion(5)
+    print "first bed is :{}".format(firstBadVersion(5))
